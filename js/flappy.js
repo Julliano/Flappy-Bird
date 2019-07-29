@@ -159,6 +159,8 @@ function FlappyBird() {
     gamingArea.appendChild(bird.element);
     barriers.pair.forEach(pair => gamingArea.appendChild(pair.element));
 
+    this.resetBird = () => bird.setY(height / 2);
+
     this.start = () => {
         const temp = setInterval(() => {
             barriers.animation();
@@ -166,9 +168,19 @@ function FlappyBird() {
 
             if (collided(bird, barriers, height)) {
                 clearInterval(temp);
+                modal.style.display='block';
             }
         }, 20);
     }
 }
 
-new FlappyBird().start();
+let flappy = new FlappyBird();
+flappy.start();
+
+const modal = document.getElementById('myModal');
+const tryAgain = document.querySelector('#try-again');
+const gamingArea = document.querySelector('[wm-flappy]');
+
+tryAgain.onclick = function() {
+    location.reload();
+}
